@@ -219,12 +219,7 @@ class DiseaseDetection:
         
         img_b64 = img_base64
         img1 = base64.b64decode(img_b64)
-
-        with open('test.jpg', 'wb') as f:
-            f.write(img1)
-        
-        with open('test.jpg', 'rb') as f:
-            content = f.read()
+        content = img1
         
         image = automl.types.Image(image_bytes=content)
         payload = automl.types.ExamplePayload(image=image)
@@ -239,8 +234,6 @@ class DiseaseDetection:
             details['PredictedClassName'] = result.display_name
             details['PredictedClassScore'] = result.classification.score
             prediction_result.append(details)
-            
-        os.remove('test.jpg')
 
         return prediction_result
     
